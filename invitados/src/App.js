@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import Formulario from "./componentes/Formulario";
+import Enviado from "./componentes/Enviado";
 function App() {
+
+  const [invitaciones, guardarInvitaciones] = useState([]);
+  const [mostrarformulario, actualizarFormulario] = useState(true);
+
+  const crearInvitacion = invitacion => {
+    guardarInvitaciones([
+      ...invitaciones,
+      invitacion
+    ]);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="container">
+      <header>
+        <h1>Sistema invitados</h1>
+        <div className="contenido-principal contenido">
+          {mostrarformulario ?
+            (<Formulario
+              actualizarFormulario={actualizarFormulario}
+              crearInvitacion={crearInvitacion}
+            ></Formulario>) 
+            : (
+              <div className="row">
+                <Enviado/>
+              </div>
+            )}
+
+        </div>
       </header>
     </div>
+
   );
 }
 
